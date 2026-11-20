@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Generated media / temp
+output/
+data/
+.work_*/
+*.mp4
+*.mp3
+*.wav
+
+# Secrets
+.env
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

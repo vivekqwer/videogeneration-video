@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Video Studio</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">AI Video Studio</div>
+  <nav>
+    <button class="tab active" data-view="generate">Generate</button>
+    <button class="tab" data-view="gallery">Gallery <span id="runningBadge" class="badge hidden"></span></button>
+    <button class="tab" data-view="providers">AI Models</button>
+    <button class="tab" data-view="discover">Discover new AI</button>
+  </nav>
+  <div id="tokenState" class="pill"></div>
+</header>
+
+<main>
+  <!-- GENERATE -->
+  <section id="view-generate" class="view active">
+    <div class="grid2">
+      <div class="card">
+        <label for="prompt">Prompt / script</label>
+        <textarea id="prompt" rows="6" placeholder="A golden retriever running on a beach at sunset, cinematic, slow motion"></textarea>
+
+        <div class="row">
+          <div>
+            <label>Aspect ratio</label>
+            <div class="seg" id="aspect">
+              <button data-v="9:16" class="on">9:16 Reel</button>
+              <button data-v="16:9">16:9</button>
+              <button data-v="1:1">1:1</button>
+            </div>
+          </div>
+          <div>
+            <label for="duration">Duration <span id="durVal">4</span>s</label>
+            <input id="duration" type="range" min="2" max="8" step="1" value="4">
+          </div>
+        </div>
+
+        <details>
+          <summary>Advanced</summary>
+          <label for="negative">Negative prompt</label>
+          <input id="negative" type="text" placeholder="blurry, distorted, watermark">
+          <div class="row">
+            <div>
+              <label for="seed">Seed (-1 = random)</label>
+              <input id="seed" type="number" value="-1">
+            </div>
+            <div>
+              <label for="image">Start image (optional)</label>
+              <input id="image" type="file" accept="image/png,image/jpeg,image/webp">
+            </div>
+          </div>
+          <label for="voice">ReelGen voice (optional)</label>
+          <input id="voice" type="text" placeholder="hi-IN-SwaraNeural / en-US-AndrewNeural">
+        </details>
+
+        <button id="genBtn" class="primary">Generate</button>
+        <div id="genMsg" class="msg"></div>
+      </div>
+
+      <div class="card">
+        <div class="cardhead">
+          <label>AI models</label>
+          <div>
+            <button class="link" id="selAll">all</button> ·
+            <button class="link" id="selNone">none</button>
+          </div>
+        </div>
+        <div id="providerPick" class="picklist"></div>
+      </div>
+    </div>
+
+    <h3>Latest</h3>
+    <div id="recent" class="gallery"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="view-gallery" class="view">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search prompt...">
+      <select id="filterProvider"><option value="">All models</option></select>
+      <select id="filterStatus">
+        <option value="">All status</option><option>done</option><option>running</option>
+        <option>queued</option><option>error</option>
+      </select>
+    </div>
+    <div id="gallery" class="gallery"></div>
+  </section>
+
+  <!-- PROVIDERS -->
+  <section id="view-providers" class="view">
+    <p class="muted">Connected AI models. Free ones use Hugging Face free GPU (daily quota). Add a free <code>HF_TOKEN</code> in <code>.env</code> for more quota.</p>
+    <div id="providerList" class="plist"></div>
+  </section>
+
+  <!-- DISCOVER -->
+  <section id="view-discover" class="view">
+    <div class="toolbar">
+      <button id="scanBtn" class="primary small">Scan Hugging Face</button>
+      <input id="manualSpace" type="text" placeholder="owner/space-name">
+      <button id="manualBtn" class="small">Connect</button>
+      <span id="discMsg" class="msg"></span>
+    </div>
+    <div id="discList" class="plist"></div>
+  </section>
+</main>
+
+<template id="jobTpl">
+  <div class="job">
+    <div class="media"></div>
+    <div class="meta">
+      <div class="jhead"><span class="prov"></span><span class="st"></span></div>
+      <div class="prompt"></div>
+      <div class="jmsg"></div>
+      <div class="actions"></div>
+    </div>
+  </div>
+</template>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

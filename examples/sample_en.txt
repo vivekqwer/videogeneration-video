@@ -1,0 +1,7 @@
+# One sentence = one scene. Optional [query] prefix sets the Pexels image search.
+[morning sunrise] Most people waste the first hour of their day.
+[phone scrolling] They wake up and grab their phone before anything else.
+[glass of water] Instead, drink a glass of water first.
+[person walking outdoors] Then step outside for ten minutes of sunlight.
+[writing notebook] Write down the one task that matters most today.
+[success celebration] Do this for a week and watch your focus change. Follow for more!
